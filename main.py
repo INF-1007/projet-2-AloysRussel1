@@ -1,3 +1,5 @@
+from logging import config
+
 import pygame
 from moto import Moto
 from auto import Auto
@@ -20,6 +22,12 @@ def main():
 
     # TODO : Créer une liste de véhicules qui contient une instance pour chaque
     # type de véhicule : une moto, une auto et un camion
+    
+    une_moto = Moto("Ma Super Moto", [START_LINE_X, START_MOTO_Y])
+    une_auto = Auto("Mon Auto Rapide", [START_LINE_X, START_AUTO_Y])
+    un_camion = Camion("Mon Gros Camion", [START_LINE_X, START_CAMION_Y])
+    
+    liste_vehicules = [une_moto, une_auto, un_camion]
 
     running = True
     course_commencee = False
@@ -41,14 +49,21 @@ def main():
 
         # TODO : Gérer le début de la course en appelant la méthode `accelerer` des véhicules
         # Si le véhicule franchit la ligne et qu’on n’a pas encore de gagnant, on le note
+        for vehicule in liste_vehicules:
+            if course_commencee and gagnant is None:
+                vehicule.accelerer(dt)
+                if vehicule.get_position()[0] >= FINISH_LINE_X:
+                    gagnant = vehicule
 
 
         # TODO : Pour chaque véhicule, appeler la méthode `affichage_vehicule`
+        for vehicule in liste_vehicules:
+            vehicule.affichage_vehicule(screen)
+            
         
 
         if not course_commencee and gagnant is None:
-            txt = font.render("Appuyez sur ESPACE pour démarrer",
-                              True, (0, 0, 0))
+            txt = font.render("Appuyez sur ESPACE pour démarrer", True, (0, 0, 0))
             screen.blit(txt, (350, 35))
 
         # TODO: Si on a un gagnant, afficher le message qui indique le véhicule gagnant avec la méthode `celebrer` 
