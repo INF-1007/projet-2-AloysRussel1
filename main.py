@@ -1,6 +1,7 @@
 from logging import config
 
 import pygame
+import random
 from moto import Moto
 from auto import Auto
 from camion import Camion
@@ -10,6 +11,7 @@ from config import WIDTH, HEIGHT, START_LINE_X, FINISH_LINE_X, START_MOTO_Y, STA
 
 def main():
 
+    liste_confettis = []
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Simulation de course")
@@ -26,6 +28,7 @@ def main():
     une_moto = Moto("Ma Super Moto", [START_LINE_X, START_MOTO_Y])
     une_auto = Auto("Mon Auto Rapide", [START_LINE_X, START_AUTO_Y])
     un_camion = Camion("Mon Gros Camion", [START_LINE_X, START_CAMION_Y])
+    confetti = Confetti(500, (255, 0, 0), 10, 3) # Exemple de confetti pour les tests
     
     liste_vehicules = [une_moto, une_auto, un_camion]
 
@@ -50,9 +53,9 @@ def main():
         # TODO : Gérer le début de la course en appelant la méthode `accelerer` des véhicules
         # Si le véhicule franchit la ligne et qu’on n’a pas encore de gagnant, on le note
         for vehicule in liste_vehicules:
-            if course_commencee and gagnant is None:
+            if course_commencee :
                 vehicule.accelerer(dt)
-                if vehicule.get_position()[0] >= FINISH_LINE_X:
+                if vehicule.get_position()[0] >= FINISH_LINE_X and gagnant is None:
                     gagnant = vehicule
 
 
@@ -66,8 +69,16 @@ def main():
             txt = font.render("Appuyez sur ESPACE pour démarrer", True, (0, 0, 0))
             screen.blit(txt, (350, 35))
 
-        # TODO: Si on a un gagnant, afficher le message qui indique le véhicule gagnant avec la méthode `celebrer` 
-        
+        # TODO: Si on a un gagnant, afficher le message qui indique le véhicule gagnant avec la méthode `celebrer`
+        if gagnant is not None:
+            message_gagnant = gagnant.celebrer()
+            txt_gagnant = font.render(message_gagnant, True, (255, 0, 0))
+            screen.blit(txt_gagnant, (350, 35))
+            
+            # Ajouter des confettis
+            confetti.gerer_la_fete(liste_confettis, screen, WIDTH, HEIGHT)
+
+            
 
         pygame.display.flip()
 

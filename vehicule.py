@@ -88,12 +88,13 @@ class Vehicule:
         trainee = self.calculer_trainee()
         friction = self.calculer_friction()
         
-        acceleration = (traction - trainee - friction) / self.__poids_total
+        traction_vecteur = np.array([traction, 0.0])
+        
+        acceleration = (traction_vecteur - trainee - friction) / self.__poids_total
         
         self.__vitesse += acceleration * dt
         self.__position += self.__vitesse * dt
 
     def celebrer(self):
         # TODO : compléter la méthode 
-        
-        return f"{self.nom} remporte la course !"
+        return f"{self.__nom} remporte la course !"
