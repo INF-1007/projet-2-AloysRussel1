@@ -28,7 +28,7 @@ def main():
     une_moto = Moto("Ma Super Moto", [START_LINE_X, START_MOTO_Y])
     une_auto = Auto("Mon Auto Rapide", [START_LINE_X, START_AUTO_Y])
     un_camion = Camion("Mon Gros Camion", [START_LINE_X, START_CAMION_Y])
-    confetti = Confetti(500, (255, 0, 0), 10, 3) # Exemple de confetti pour les tests
+    confetti = Confetti(500, (255, 0, 0), 10, 3) 
     
     liste_vehicules = [une_moto, une_auto, un_camion]
 

@@ -13,7 +13,7 @@ from specifications import DENSITE_AIR
 # - `roues`
 # - `moteur`
 # - `chassis`
-# - `poids_total`: la somme du poids des composantes
+# - `poids_total`: la somme du poids des composantes 
 
 class Vehicule:
 
@@ -32,8 +32,7 @@ class Vehicule:
 
         # TODO : ajouter un attribut pour l'image du véhicule
         self.__taille_image = (Specs.image_width, Specs.image_height)
-        image_brute = pygame.image.load(image_path).convert_alpha()
-        self.__image = pygame.transform.scale(image_brute, self.__taille_image)
+        self.__image_originale = pygame.image.load(image_path).convert_alpha()
         
     def get_position(self):
         return self.__position
@@ -43,8 +42,10 @@ class Vehicule:
     
     def affichage_vehicule(self, screen):
         # TODO : compléter la méthode 
+        if not hasattr(self, '_Vehicule__image'):
+            self.__image = pygame.transform.scale(self.__image_originale, self.__taille_image)
         position_x = int(self.__position[0]) - self.__taille_image[0]
-        position_y = int(self.__position[1])
+        position_y = int(self.__position[1]+20)
         
         rect = self.__image.get_rect(midleft=(position_x, position_y))
         screen.blit(self.__image, rect)
@@ -52,12 +53,8 @@ class Vehicule:
     
     def calculer_poids_total(self):
         # TODO : compléter la méthode
-        poids_roues = self.__roues.get_poids() * 4
-        poids_moteur = self.__moteur.get_poids()
-        poids_chassis = self.__chassis.get_poids()
-        
-        self.__poids_total = poids_roues + poids_moteur + poids_chassis
-        return self.__poids_total
+        return (self.__roues.get_poids() * self.__roues.nb_roues) + \
+            self.__moteur.get_poids() + self.__chassis.get_poids()
 
     def calculer_traction(self):
         # TODO : compléter la méthode 

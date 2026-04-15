@@ -12,7 +12,7 @@ class Auto(Vehicule):
     def __init__(self, nom, position_dep):
         specs = AutoSpecs()
         nb_roues = 4
-        mes_roues = Roue(specs.roue_nom, specs.roue_friction, specs.roue_poids*nb_roues)
+        mes_roues = Roue(specs.roue_nom, specs.roue_poids*nb_roues, specs.roue_friction, specs.roue_support*nb_roues)
         mon_moteur = Moteur(specs.moteur_nom, specs.moteur_puissance, specs.moteur_acceleration)
         mon_chassis = Chassis(specs.chassis_nom, specs.chassis_poids, specs.chassis_aire, specs.chassis_trainee)
         super().__init__(

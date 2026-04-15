@@ -11,7 +11,7 @@ class Moto(Vehicule):
     def __init__(self, nom, position_dep):
         specs = MotoSpecs()
         nb_roues = 2
-        mes_roues = Roue(specs.roue_nom, specs.roue_friction, specs.roue_poids*nb_roues)
+        mes_roues = Roue(specs.roue_nom, specs.roue_poids*nb_roues, specs.roue_friction, specs.roue_support*nb_roues)
         mon_moteur = Moteur(specs.moteur_nom, specs.moteur_puissance, specs.moteur_acceleration)
         mon_chassis = Chassis(specs.chassis_nom, specs.chassis_poids, specs.chassis_aire, specs.chassis_trainee)
         super().__init__(
@@ -21,5 +21,5 @@ class Moto(Vehicule):
             moteur=mon_moteur, 
             chassis=mon_chassis, 
             Specs=specs, 
-            image_path="images/moto.png"
+            image_path="images/moto.png",
         )
